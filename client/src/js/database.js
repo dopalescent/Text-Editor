@@ -17,14 +17,11 @@ export const putDb = async (content) => {
   const jateDb = await openDB('jate', 1);
   const tx = jateDb.transaction('jate', 'readwrite');
   const store = tx.objectStore('jate');
-  const request = store.put({ content: content });
+  const request = store.put({ id: id, value: content });
   const result = await request;
-  if (result) {
-    console.log('Data saved to the database', result);
-    return result;
-  } else {
-    console.error('putDb not implemented')
-  }
+  console.log('Data saved to the database', result);
+  return result;
+
 };
 
 export const getDb = async () => {
@@ -34,12 +31,8 @@ export const getDb = async () => {
   const store = tx.objectStore('jate');
   const request = store.getAll();
   const result = await request;
-  if (result) {
-    console.log('result.value', result);
-    return result;
-  } else {
-    console.error('getDb not implemented');
-  };
+  console.log('result.value', result);
+  return result;
 };
 
 initdb();
